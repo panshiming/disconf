@@ -89,7 +89,7 @@ public final class DisClientConfig {
     private List<String> hostList;
 
     /**
-     * app
+     * app   zookeeper路径
      *
      * @author
      * @since 1.0.0
@@ -193,6 +193,27 @@ public final class DisClientConfig {
      */
     @DisInnerConfigAnnotation(name = "disconf.enable_local_download_dir_in_class_path", defaultValue = "true")
     public boolean enableLocalDownloadDirInClassPath = true;
+    
+    
+    /**
+     * zkHosts
+     * 
+     * */
+    @DisInnerConfigAnnotation(name = "disconf.zk_hosts", defaultValue = "")
+    public String zkHosts;
+    
+    
+    /**
+     * zkPrefix
+     * 
+     * */
+    @DisInnerConfigAnnotation(name = "disconf.zk_prefix")
+    public String zkPrefix;
+    
+    @DisInnerConfigAnnotation(name = "disconf.db_path")
+    public String dbPath;
+    
+    //public List<String> dbPath;
 
     public List<String> getHostList() {
         return hostList;

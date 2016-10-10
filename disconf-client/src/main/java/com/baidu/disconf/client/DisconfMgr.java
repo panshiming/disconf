@@ -76,7 +76,7 @@ public class DisconfMgr implements ApplicationContextAware {
         //
         //
         //
-
+        
         try {
 
             // 导入配置
@@ -197,6 +197,32 @@ public class DisconfMgr implements ApplicationContextAware {
                 LOGGER.error(e.toString(), e);
             }
         }
+    }
+    
+    public synchronized void reloadableDBScan(String fileName) {
+    	if (!isFirstInit) {
+    		return ;
+    	}
+    	if (DisClientConfig.getInstance().ENABLE_DISCONF) {
+    		try {
+    			if (!DisClientConfig.getInstance().getIgnoreDisconfKeySet().contains(fileName)) {
+    				if (scanMgr != null) {
+    					scanMgr.reloadableDBScan(fileName);
+    				}
+    				String fileNameExt = fileName;  //需要进行扩展
+    				if (fileName.lastIndexOf(".properties")<0) {
+    					fileNameExt = fileName+".properties";
+    				}
+                    if (disconfCoreMgr != null) {
+                        disconfCoreMgr.processFile(fileNameExt);
+                    }
+                    LOGGER.debug("database disconf reloadable file: {}", fileName);
+    			}
+    		}catch (Exception e) {
+
+                LOGGER.error(e.toString(), e);
+            }
+    	}
     }
 
     /**

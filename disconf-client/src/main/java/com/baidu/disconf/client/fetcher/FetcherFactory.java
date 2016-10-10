@@ -4,6 +4,7 @@ import com.baidu.disconf.client.config.ConfigMgr;
 import com.baidu.disconf.client.config.DisClientConfig;
 import com.baidu.disconf.client.config.DisClientSysConfig;
 import com.baidu.disconf.client.fetcher.impl.FetcherMgrImpl;
+import com.baidu.disconf.client.fetcher.impl.FetcherMgrZkImpl;
 import com.baidu.disconf.core.common.restful.RestfulFactory;
 import com.baidu.disconf.core.common.restful.RestfulMgr;
 
@@ -25,15 +26,20 @@ public class FetcherFactory {
         }
 
         // 获取一个默认的抓取器
-        RestfulMgr restfulMgr = RestfulFactory.getRestfulMgrNomal();
-
-        FetcherMgr fetcherMgr =
-                new FetcherMgrImpl(restfulMgr, DisClientConfig.getInstance().CONF_SERVER_URL_RETRY_TIMES,
-                        DisClientConfig.getInstance().confServerUrlRetrySleepSeconds,
-                        DisClientConfig.getInstance().enableLocalDownloadDirInClassPath,
-                        DisClientConfig.getInstance().userDefineDownloadDir,
-                        DisClientSysConfig.getInstance().LOCAL_DOWNLOAD_DIR,
-                        DisClientConfig.getInstance().getHostList());
+//        RestfulMgr restfulMgr = RestfulFactory.getRestfulMgrNomal();
+//
+//        FetcherMgr fetcherMgr =
+//                new FetcherMgrImpl(restfulMgr, DisClientConfig.getInstance().CONF_SERVER_URL_RETRY_TIMES,
+//                        DisClientConfig.getInstance().confServerUrlRetrySleepSeconds,
+//                        DisClientConfig.getInstance().enableLocalDownloadDirInClassPath,
+//                        DisClientConfig.getInstance().userDefineDownloadDir,
+//                        DisClientSysConfig.getInstance().LOCAL_DOWNLOAD_DIR,
+//                        DisClientConfig.getInstance().getHostList());
+        FetcherMgr fetcherMgr = new FetcherMgrZkImpl(DisClientConfig.getInstance().CONF_SERVER_URL_RETRY_TIMES, 
+        		DisClientConfig.getInstance().confServerUrlRetrySleepSeconds, 
+        		DisClientConfig.getInstance().enableLocalDownloadDirInClassPath, 
+        		DisClientConfig.getInstance().userDefineDownloadDir, 
+        		DisClientSysConfig.getInstance().LOCAL_DOWNLOAD_DIR);
 
         return fetcherMgr;
     }

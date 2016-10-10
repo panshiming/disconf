@@ -31,6 +31,12 @@
         <property name="maxIdleTime">
             <value>${jdbc.maxIdleTime}</value>
         </property>
+        <property name="maxStatements">
+        	<value>0</value>
+        </property>
+       <property name="checkoutTimeout">
+        	<value>100</value>
+        </property>
     </bean>
 
     <bean id="onedb_0" parent="onedbDataSource">

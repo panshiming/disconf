@@ -59,22 +59,28 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
             filename = filename.trim();
 
             String realFileName = getFileName(filename);
-
+            String filenameext = filename;
+            //todo 判断是不是mysql db配置文件
+            if(isDBFileName(filename)) {
+            	DisconfMgr.getInstance().reloadableDBScan(realFileName);
+            	filenameext = realFileName+".properties";
+            } else {
             //
             // register to disconf
             //
-            DisconfMgr.getInstance().reloadableScan(realFileName);
+            	DisconfMgr.getInstance().reloadableScan(realFileName);
+            }
 
             //
             // only properties will reload
             //
-            String ext = FilenameUtils.getExtension(filename);
+            String ext = FilenameUtils.getExtension(filenameext);
             if (ext.equals("properties")) {
 
                 PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver =
                         new PathMatchingResourcePatternResolver();
                 try {
-                    Resource[] resourceList = pathMatchingResourcePatternResolver.getResources(filename);
+                    Resource[] resourceList = pathMatchingResourcePatternResolver.getResources(filenameext);
                     for (Resource resource : resourceList) {
                         resources.add(resource);
                     }
@@ -117,7 +123,13 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
         }
         return null;
     }
-
+    
+    private boolean isDBFileName(String fileName) {
+    	if (fileName.contains("/mysql/")) {
+    		return true;
+    	}
+    	return false;
+    }
     protected Resource[] getLocations() {
         return locations;
     }
@@ -154,6 +166,7 @@ public class ReloadablePropertiesFactoryBean extends PropertiesFactoryBean imple
      * @throws IOException
      */
     protected Object createMyInstance() throws IOException {
+    	log.debug("panshiming start createMyInstance...");
         // would like to uninherit from AbstractFactoryBean (but it's final!)
         if (!isSingleton()) {
             throw new RuntimeException("ReloadablePropertiesFactoryBean only works as singleton");

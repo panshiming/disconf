@@ -35,5 +35,43 @@ public class StaticScannerMgrImplBase {
 
         return disConfCommonModel;
     }
+    protected static String buildZkFilePath(String zkPrefix,String app,String version,String env,String filename) {
+    	 StringBuffer sb = new StringBuffer();
+    	 if (zkPrefix!=null && zkPrefix.length()>0) {
+    		 sb.append(zkPrefix);
+    	 }
+    	 if (app==null || app.length()<=0) {
+    		 return null;
+    	 }
+    	 sb.append(app);
+    	 if (version!=null && version.length()>0) {
+    		 sb.append("_");
+    		 sb.append(version);
+    	 }
+    	 
+    	 if (env!=null && env.length()>0) {
+    		 sb.append("_");
+    		 sb.append(env);
+    	 }
+    	 sb.append("/");
+    	 if (filename==null || filename.length()<=0) {
+    		 return null;
+    	 }
+    	 sb.append(filename);
+    	 return sb.toString();
+    	 
+    }
+    protected static String buildDBZkFilePath(String dbpath,String filename) {
+    	StringBuffer sb = new StringBuffer();
+    	if (dbpath!=null && dbpath.length()>0) {
+    		sb.append(dbpath);
+    	}
+    	sb.append("/");
+    	if (filename==null||filename.length()<=0) {
+    		return null;
+    	} 
+    	sb.append(filename);
+    	return sb.toString();
+    }
 
 }

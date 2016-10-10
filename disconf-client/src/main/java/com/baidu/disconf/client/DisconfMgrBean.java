@@ -60,7 +60,8 @@ public class DisconfMgrBean implements BeanDefinitionRegistryPostProcessor, Prio
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
 
-        // 为了做兼容
+       
+    	// 为了做兼容
         DisconfCenterHostFilesStore.getInstance().addJustHostFileSet(fileList);
 
         List<String> scanPackList = StringUtil.parseStringToStringList(scanPackage, SCAN_SPLIT_TOKEN);

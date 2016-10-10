@@ -54,7 +54,8 @@ public class DisInnerConfigHelper {
 
         if (StringUtils.isEmpty(DisClientConfig.getInstance().VERSION)) {
 
-            throw new Exception("settings: " + DisClientConfig.VERSION_NAME + " cannot find");
+            //throw new Exception("settings: " + DisClientConfig.VERSION_NAME + " cannot find");
+        	LOGGER.warn("server "+DisClientConfig.VERSION_NAME+" is null.");
         }
         LOGGER.info("SERVER " + DisClientConfig.VERSION_NAME + ": " + DisClientConfig.getInstance().VERSION);
 
@@ -72,7 +73,8 @@ public class DisInnerConfigHelper {
 
         if (StringUtils.isEmpty(DisClientConfig.getInstance().ENV)) {
 
-            throw new Exception("settings: " + DisClientConfig.ENV_NAME + "  cannot find");
+            //throw new Exception("settings: " + DisClientConfig.ENV_NAME + "  cannot find");
+            LOGGER.warn("server "+DisClientConfig.ENV_NAME+" is null.");
         }
         LOGGER.info("SERVER " + DisClientConfig.ENV_NAME + ": " + DisClientConfig.getInstance().ENV);
 

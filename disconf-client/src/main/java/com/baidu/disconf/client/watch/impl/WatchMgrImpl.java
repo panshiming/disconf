@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.baidu.disconf.client.common.model.DisConfCommonModel;
+import com.baidu.disconf.client.common.model.DisconfCenterFile;
 import com.baidu.disconf.client.config.inner.DisClientComConfig;
 import com.baidu.disconf.client.core.processor.DisconfCoreProcessor;
 import com.baidu.disconf.client.watch.WatchMgr;
@@ -120,12 +121,23 @@ public class WatchMgrImpl implements WatchMgr {
     public void watchPath(DisconfCoreProcessor disconfCoreMgr, DisConfCommonModel disConfCommonModel, String keyName,
                           DisConfigTypeEnum disConfigTypeEnum, String value) throws Exception {
 
-        // 新建
+    	LOGGER.debug("panshiming watchpath value:"+value);
+    	// 新建
         String monitorPath = makeMonitorPath(disConfigTypeEnum, disConfCommonModel, keyName, value);
 
         // 进行监控
         NodeWatcher nodeWatcher =
                 new NodeWatcher(disconfCoreMgr, monitorPath, keyName, disConfigTypeEnum, new DisconfSysUpdateCallback(),
+                        debug);
+        nodeWatcher.monitorMaster();
+    }
+    
+    public void watchDBPath(DisconfCoreProcessor disconfCoreMgr,DisConfCommonModel disConfCommonModel, DisconfCenterFile disconfCenterFile,
+    							DisConfigTypeEnum disConfigTypeEnum, String value) throws Exception {
+    	LOGGER.debug("panshiming watchdbpath value:"+value);
+    	String monitorPath = disconfCenterFile.getRemoteServerUrl();   //监控的节点就是配置数据所在路径
+        NodeWatcher nodeWatcher =
+                new NodeWatcher(disconfCoreMgr, monitorPath, disconfCenterFile.getFileName(), disConfigTypeEnum, new DisconfSysUpdateCallback(),
                         debug);
         nodeWatcher.monitorMaster();
     }

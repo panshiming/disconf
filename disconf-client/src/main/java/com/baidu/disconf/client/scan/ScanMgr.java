@@ -24,4 +24,10 @@ public interface ScanMgr {
      * @throws Exception
      */
     void reloadableScan(String fileName) throws Exception;
+    
+    
+    /**
+     * reloadable for database conf file
+     */
+    void reloadableDBScan(String fileName) throws Exception;
 }

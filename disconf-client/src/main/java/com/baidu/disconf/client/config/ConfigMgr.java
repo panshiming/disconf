@@ -19,7 +19,7 @@ public class ConfigMgr {
     private static boolean isInit = false;
 
     /**
-     * 初始化配置
+     * 初始化配置 
      *
      * @throws Exception
      */

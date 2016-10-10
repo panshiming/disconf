@@ -45,8 +45,30 @@ public class DisconfCenterFile extends DisconfCenterBaseModel {
 
     // 文件类型
     private SupportFileTypeEnum supportFileTypeEnum = SupportFileTypeEnum.ANY;
+    
+    //标识是否是数据库配置文件
+    private boolean isDbConfFile = false;
+    
+    //数据库配置项前缀
+    private String itemPrefix;
 
-    public Class<?> getCls() {
+    public String getItemPrefix() {
+		return itemPrefix;
+	}
+
+	public void setItemPrefix(String itemPrefix) {
+		this.itemPrefix = itemPrefix;
+	}
+
+	public boolean isDbConfFile() {
+		return isDbConfFile;
+	}
+
+	public void setDbConfFile(boolean isDbConfFile) {
+		this.isDbConfFile = isDbConfFile;
+	}
+
+	public Class<?> getCls() {
         return cls;
     }
 

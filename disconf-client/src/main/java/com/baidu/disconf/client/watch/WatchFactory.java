@@ -40,14 +40,16 @@ public class WatchFactory {
                     // 获取 Zoo Hosts
                     try {
 
-                        hosts = fetcherMgr.getValueFromServer(DisconfWebPathMgr.getZooHostsUrl(DisClientSysConfig
-                                                                                                   .getInstance()
-                                                                                                   .CONF_SERVER_ZOO_ACTION));
-
-                        zooPrefix = fetcherMgr.getValueFromServer(DisconfWebPathMgr.getZooPrefixUrl(DisClientSysConfig
-                                                                                                        .getInstance
-                                                                                                             ()
-                                                                                                        .CONF_SERVER_ZOO_ACTION));
+//                        hosts = fetcherMgr.getValueFromServer(DisconfWebPathMgr.getZooHostsUrl(DisClientSysConfig
+//                                                                                                   .getInstance()
+//                                                                                                   .CONF_SERVER_ZOO_ACTION));
+//
+//                        zooPrefix = fetcherMgr.getValueFromServer(DisconfWebPathMgr.getZooPrefixUrl(DisClientSysConfig
+//                                                                                                        .getInstance
+//                                                                                                             ()
+//                                                                                                        .CONF_SERVER_ZOO_ACTION));
+                    	hosts = DisClientConfig.getInstance().zkHosts;
+                    	zooPrefix = DisClientConfig.getInstance().zkPrefix;
 
                         WatchMgr watchMgr = new WatchMgrImpl();
                         watchMgr.init(hosts, zooPrefix, DisClientConfig.getInstance().DEBUG);

@@ -22,14 +22,18 @@ public class ZooPathMgr {
         StringBuffer sb = new StringBuffer();
         sb.append(urlPrefix);
 
-        sb.append(Constants.SEP_STRING);
+        if (app.charAt(0)!='/') {
+        	sb.append(Constants.SEP_STRING);
+        }
         sb.append(app);
-
-        sb.append("_");
-        sb.append(version);
-
-        sb.append("_");
-        sb.append(env);
+        if(version!=null && !version.isEmpty()) {
+        	sb.append("_");
+        	sb.append(version);
+        }
+        if (env!=null && !env.isEmpty()) {
+            sb.append("_");
+            sb.append(env);
+        }
 
         return sb.toString();
     }
@@ -65,6 +69,7 @@ public class ZooPathMgr {
      */
     public static String getFileZooPath(String baseUrl) {
 
-        return baseUrl + Constants.SEP_STRING + Constants.STORE_FILE_URL_KEY;
+        //return baseUrl + Constants.SEP_STRING + Constants.STORE_FILE_URL_KEY;
+    	return baseUrl;     //modify by panshiming
     }
 }

@@ -104,7 +104,8 @@ public class DisconfFileCoreProcessorImpl implements DisconfCoreProcessor {
             try {
 
                 String url = disconfCenterFile.getRemoteServerUrl();
-                filePath = fetcherMgr.downloadFileFromServer(url, fileName, disconfCenterFile.getFileDir());
+                LOGGER.debug("panshiming url:"+url);
+                filePath = fetcherMgr.downloadFileFromServer(url, fileName, disconfCenterFile.getFileDir()); //这块需要修改成从zk上获取数据
 
             } catch (Exception e) {
 
@@ -143,8 +144,12 @@ public class DisconfFileCoreProcessorImpl implements DisconfCoreProcessor {
             //
             DisConfCommonModel disConfCommonModel = disconfStoreProcessor.getCommonModel(fileName);
             if (watchMgr != null) {
-                watchMgr.watchPath(this, disConfCommonModel, fileName, DisConfigTypeEnum.FILE,
+            	if (disconfCenterFile.isDbConfFile()) {
+            		watchMgr.watchDBPath(this, disConfCommonModel, disconfCenterFile, DisConfigTypeEnum.FILE, GsonUtils.toJson(disconfCenterFile.getKV()));
+            	} else {
+            		watchMgr.watchPath(this, disConfCommonModel, fileName, DisConfigTypeEnum.FILE,
                         GsonUtils.toJson(disconfCenterFile.getKV()));
+            	}
                 LOGGER.debug("watch ok.");
             } else {
                 LOGGER.warn("cannot monitor {} because watch mgr is null", fileName);

@@ -1,5 +1,6 @@
 package com.baidu.disconf.client.scan.inner.statically;
 
+import com.baidu.disconf.client.scan.inner.statically.impl.StaticScannerDBFileMgrImpl;
 import com.baidu.disconf.client.scan.inner.statically.impl.StaticScannerFileMgrImpl;
 import com.baidu.disconf.client.scan.inner.statically.impl.StaticScannerItemMgrImpl;
 import com.baidu.disconf.client.scan.inner.statically.impl.StaticScannerNonAnnotationFileMgrImpl;
@@ -32,6 +33,14 @@ public class StaticScannerMgrFactory {
      */
     public static StaticScannerMgr getDisconfNonAnnotationFileStaticScanner() {
         return new StaticScannerNonAnnotationFileMgrImpl();
+    }
+    
+    /**
+     * 数据库配置文件处理
+     * 
+     * */
+    public static StaticScannerMgr getDisconDBFileStaticScanner() {
+    	return new StaticScannerDBFileMgrImpl();
     }
 
 }

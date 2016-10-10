@@ -1,6 +1,7 @@
 package com.baidu.disconf.client.watch;
 
 import com.baidu.disconf.client.common.model.DisConfCommonModel;
+import com.baidu.disconf.client.common.model.DisconfCenterFile;
 import com.baidu.disconf.client.core.processor.DisconfCoreProcessor;
 import com.baidu.disconf.core.common.constants.DisConfigTypeEnum;
 
@@ -24,6 +25,8 @@ public interface WatchMgr {
      */
     void watchPath(DisconfCoreProcessor disconfCoreMgr, DisConfCommonModel disConfCommonModel, String keyName,
                    DisConfigTypeEnum disConfigTypeEnum, String value) throws Exception;
+    void watchDBPath(DisconfCoreProcessor disconfCoreMgr,DisConfCommonModel disConfCommonModel, DisconfCenterFile disconfCenterFile,
+			DisConfigTypeEnum disConfigTypeEnum, String value) throws Exception;
 
     void release();
 }
